@@ -11,10 +11,10 @@ const {
 
 router.use(authenticate);
 
-router.post("/tasks", createTask);
-router.get("/tasks", listTasks);
-router.get("/tasks/:id", getTask);
-router.put("/tasks/:id", updateTask);
-router.delete("/tasks/:id", deleteTask);
+router.post("/", createTask);
+router.get("/", listTasks);
+router.get("/:id", getTask);
+router.put("/:id", updateTask);
+router.delete("/:id", deleteTask);
 
 module.exports = router;
