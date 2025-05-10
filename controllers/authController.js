@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
+const { logger } = require("../utils/logger");
 
 const register = async (req, res) => {
   try {
@@ -16,6 +17,11 @@ const register = async (req, res) => {
       token,
     });
   } catch (error) {
+    logger.error(
+      `Registration error: ${
+        error.errors?.map((e) => e.message) || error.message
+      }`
+    );
     res.status(400).json({
       message: "Registration failed",
       error: error.errors?.map((e) => e.message) || error.message,
@@ -43,6 +49,7 @@ const login = async (req, res) => {
     });
   } catch (error) {
     console.error("Login error:", error);
+    logger.error(`login error: ${error.message}`);
     res.status(500).json({
       message: "Login failed",
       error: error.message,

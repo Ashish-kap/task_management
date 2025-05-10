@@ -1,8 +1,9 @@
 const Joi = require("joi");
 
 const taskSchema = Joi.object({
-  title: Joi.string().required().max(100).messages({
+  title: Joi.string().trim().min(1).max(100).required().messages({
     "string.empty": "Title is required",
+    "string.min": "Title is required",
     "any.required": "Title is required",
     "string.max": "Title cannot exceed 100 characters",
   }),

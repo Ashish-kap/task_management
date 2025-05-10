@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
+const { logger } = require("../utils/logger");
 
 const authenticate = async (req, res, next) => {
   try {
@@ -18,6 +19,7 @@ const authenticate = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
+    logger.error(`Token Error: ${error.message}`);
     res.status(401).json({ message: "Invalid token" });
   }
 };

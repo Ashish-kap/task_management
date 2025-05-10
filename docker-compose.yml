@@ -1,5 +1,4 @@
-# docker-compose.yml
-version: "3.8"
+version: "4"
 
 services:
     app:
@@ -9,7 +8,7 @@ services:
         environment:
             - NODE_ENV=development
             - JWT_SECRET=s3cr3t_K3y!@#2025_T0kenGen^&*9bA7zX
-            - DATABASE_URL=postgresql://postgres:FDCmOTzNrhOCmlQgFjksweRLsluBGLre@ballast.proxy.rlwy.net:50676/railway
+            # - DATABASE_URL=postgresql://postgres:FDCmOTzNrhOCmlQgFjksweRLsluBGLre@ballast.proxy.rlwy.net:50676/railway
         depends_on:
             - db
         networks:
@@ -19,8 +18,10 @@ services:
         image: postgres:15-alpine
         environment:
             - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=FDCmOTzNrhOCmlQgFjksweRLsluBGLre
-            - POSTGRES_DB=railway
+            # - POSTGRES_PASSWORD=FDCmOTzNrhOCmlQgFjksweRLsluBGLre
+            # - POSTGRES_DB=railway
+            - POSTGRES_PASSWORD=pass1234
+            - POSTGRES_DB=task_management
         ports:
             - "50676:50676"
         volumes:

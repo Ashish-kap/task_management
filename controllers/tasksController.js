@@ -1,4 +1,5 @@
 const { Task } = require("../models");
+const { logger } = require("../utils/logger");
 
 const createTask = async (req, res) => {
   try {
@@ -8,6 +9,7 @@ const createTask = async (req, res) => {
     });
     res.status(201).json(task);
   } catch (error) {
+    logger.error(`Error creating task: ${error.message}`);
     res.status(400).json({ message: "Error creating task", error });
   }
 };
@@ -20,6 +22,7 @@ const listTasks = async (req, res) => {
     });
     res.json(tasks);
   } catch (error) {
+    logger.error(`Error fetching tasks: ${error.message}`);
     res.status(500).json({ message: "Error fetching tasks" });
   }
 };
@@ -36,6 +39,7 @@ const getTask = async (req, res) => {
 
     res.json(task);
   } catch (error) {
+    logger.error(`Error fetching tasks: ${error.message}`);
     res.status(500).json({ message: "Error fetching task" });
   }
 };
@@ -52,6 +56,7 @@ const updateTask = async (req, res) => {
 
     res.json({ message: "Task updated successfully" });
   } catch (error) {
+    logger.error(`Error updating tasks: ${error.message}`);
     res.status(400).json({ message: "Error updating task", error });
   }
 };
@@ -68,6 +73,7 @@ const deleteTask = async (req, res) => {
 
     res.json({ message: "Task deleted successfully" });
   } catch (error) {
+    logger.error(`Error deleting tasks: ${error.message}`);
     res.status(500).json({ message: "Error deleting task" });
   }
 };

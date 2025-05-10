@@ -8,13 +8,14 @@ const {
   updateTask,
   deleteTask,
 } = require("../controllers/tasksController");
+const { validateTask } = require("../utils/validators");
 
 router.use(authenticate);
 
-router.post("/", createTask);
-router.get("/", listTasks);
+router.post("/", validateTask, createTask);
+router.get("/",listTasks);
 router.get("/:id", getTask);
-router.put("/:id", updateTask);
+router.put("/:id", validateTask, updateTask);
 router.delete("/:id", deleteTask);
 
 module.exports = router;
