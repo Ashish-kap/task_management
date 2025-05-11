@@ -1,36 +1,39 @@
-version: "4"
+version: "3.8"
 
 services:
-    app:
-        build: .
-        ports:
-            - "3000:3000"
-        environment:
-            - NODE_ENV=development
-            - JWT_SECRET=s3cr3t_K3y!@#2025_T0kenGen^&*9bA7zX
-            # - DATABASE_URL=postgresql://postgres:FDCmOTzNrhOCmlQgFjksweRLsluBGLre@ballast.proxy.rlwy.net:50676/railway
-        depends_on:
-            - db
-        networks:
-            - task-network
+  app:
+    build:  .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - JWT_SECRET=s3cr3t_K3y!@#2025_T0kenGen^&*9bA7zX
+      - DB_USER=postgres
+      - DB_PASSWORD=pass1234
+      - DB_NAME=task_database
+      - DB_HOST=db
+    command: >
+      sh -c "npm run migrate && npm start"
+    depends_on:
+      - db
+    networks:
+      - task-network
 
-    db:
-        image: postgres:15-alpine
-        environment:
-            - POSTGRES_USER=postgres
-            # - POSTGRES_PASSWORD=FDCmOTzNrhOCmlQgFjksweRLsluBGLre
-            # - POSTGRES_DB=railway
-            - POSTGRES_PASSWORD=pass1234
-            - POSTGRES_DB=task_management
-        ports:
-            - "50676:50676"
-        volumes:
-            - postgres-data:/var/lib/postgresql/data
-        networks:
-            - task-network
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pass1234
+      - POSTGRES_DB=task_database
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - task-network
 
 volumes:
-    postgres-data:
+  postgres-data:
 
 networks:
-    task-network:
+  task-network:

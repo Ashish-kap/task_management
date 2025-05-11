@@ -11,9 +11,16 @@ const app = express();
 app.use(helmet());
 app.use(express.json());
 
+
+app.get("/", (req, res) => {
+  res.status(200).json({message:"server is running"});
+});
+
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
+
+
 
 // 404 Handler
 app.use((req, res) => {

@@ -1,9 +1,11 @@
 const sequelize = require("../sequelize");
-const User = require("./user");
-const Task = require("./task");
+const { DataTypes } = require("sequelize");
 
-User.hasMany(Task);
-Task.belongsTo(User);
+const User = require("./user")(sequelize, DataTypes);
+const Task = require("./task")(sequelize, DataTypes);
+
+User.associate({ Task });
+Task.associate({ User });
 
 module.exports = {
   sequelize,

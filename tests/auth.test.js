@@ -1,6 +1,5 @@
-require("dotenv").config({ path: ".env" });
+require("dotenv").config();
 const request = require("supertest");
-const jwt = require("jsonwebtoken");
 const app = require("../app");
 
 const { User, sequelize } = require("../models");
