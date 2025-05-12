@@ -4,10 +4,12 @@ const helmet = require("helmet");
 const authRoutes = require("./routes/auth.js");
 const taskRoutes = require("./routes/task.js");
 const errorHandler = require("./middleware/errorHandler");
+const cors = require('cors')
 
 const app = express();
 
 // Middleware
+app.use(cors())
 app.use(helmet());
 app.use(express.json());
 
